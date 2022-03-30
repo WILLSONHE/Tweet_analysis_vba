@@ -1,0 +1,72 @@
+'to determine a function called wordCount as integer
+Function wordCount(rawString As String) As Integer
+    'determine a range call wordList to store sentences into words
+    Dim wordList() As String
+    'set range by Split()
+    wordList = Split(rawString)
+    'determine a count integer
+    Dim count As Integer
+    count = 0
+    'loop until the end of range, and count for each word
+    For i = LBound(wordList) To UBound(wordList)
+        count = count + 1
+    Next i
+    wordCount = count
+End Function
+
+'to determine a function called UniqueWordCount as integer
+Function UniqueWordCount(rawString As String) As Integer
+    'determine a range call wordList to store sentences into words
+    Dim wordList() As String
+    'set range by Split()
+    wordList = Split(LCase(rawString))
+    'determine a count integer
+    Dim count As Integer
+    count = 0
+    'determine a settle word to be compared with
+    Dim word As String
+    'loop until the end of range, and remove duplications
+    For i = LBound(wordList) To UBound(wordList)
+        'give string word a value
+        word = wordList(i)
+        'loop to compare each word
+        For j = i + 1 To UBound(wordList) - 1
+            'examine duplications
+            If word = wordList(j) Then
+                wordList(j) = ""
+            End If
+        Next j
+    Next i
+    'loop to determine none empty range cell and count for words
+    For n = LBound(wordList) To UBound(wordList)
+        'determine cell that is not empty
+        If wordList(n) <> "" Then
+            count = count + 1
+        End If
+    Next n
+    UniqueWordCount = count
+End Function
+
+'determine function called WordListCount
+Function WordListCount(rawString As String, rawRange As range) As Integer
+    'determine a range call wordList to store sentences into words
+    Dim wordList() As String
+    'set range by Split()
+    wordList = Split(LCase(rawString))
+    'determine a count integer
+    Dim count As Integer
+    count = 0
+    'determine a settle word to be compared with
+    Dim word As String
+    'loop to match words in rawRange
+    For n = LBound(wordList) To UBound(wordList)
+        For m = 1 To rawRange.count
+            word = LCase(rawRange.Cells(m))
+            'count when matches
+            If wordList(n) = word Then
+                count = count + 1
+            End If
+        Next m
+    Next n
+    WordListCount = count
+End Function
